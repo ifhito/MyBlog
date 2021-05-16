@@ -43,7 +43,7 @@ export const getAllPostIds = (): Array<fileNameId> => {
     })
 }
 
-export const getPostData = async (id:string):Promice<postData> => {
+export const getPostData = async (id:string):Promise<postData> => {
 
     const fullPath = path.join(postsDirectory, `${id}.md`)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
