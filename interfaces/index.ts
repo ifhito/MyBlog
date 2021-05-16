@@ -19,7 +19,7 @@ export type fileNameId = {
   }
 }
 
-export type postData = {
+export interface postData{
   id:string
   contentHtml:string
   title:string
@@ -39,4 +39,12 @@ type PageProps = {
 }
 export type AppPageProps = Omit<AppProps<PageProps>, "pageProps"> & {
   pageProps: PageProps
+}
+
+export type MatterResult = {
+  content: string
+  data: {
+    title: string
+    date:string
+  }
 }

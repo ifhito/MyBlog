@@ -3,7 +3,7 @@ import path from 'path'
 import matter from 'gray-matter'
 import remark from 'remark'
 import html from 'remark-html'
-import {fileNameId, postData} from '../interfaces'
+import {fileNameId, MatterResult, postData} from '../interfaces'
 const postsDirectory= path.join(process.cwd(), 'posts')
 
 export const getSortedPostsData = () => {
@@ -48,8 +48,8 @@ export const getPostData = async (id:string):Promise<postData> => {
     const fullPath = path.join(postsDirectory, `${id}.md`)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
 
-    const matterResult = matter(fileContents)
-
+    const matterResult: MatterResult = matter(fileContents)
+    console.log('content',matterResult.content)
     const processedContent = await remark()
     .use(html)
     .process(matterResult.content)
