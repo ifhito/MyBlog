@@ -4,6 +4,7 @@
 //
 // import { User } from 'path/to/interfaces';
 import { AppProps } from "next/app"
+import {GrayMatterFile} from 'gray-matter'
 export type postDataResult = {
   id:string
   content: string
@@ -19,12 +20,17 @@ export type fileNameId = {
   }
 }
 
-export interface postData{
+export type postData = {
   id:string
   contentHtml:string
   title:string
   date:string
 }
+
+export type postMatterData = {
+  id:string
+  contentHtml:string
+} & GrayMatterFile<string>
 
 export type Props = {
   props:{
@@ -39,12 +45,4 @@ type PageProps = {
 }
 export type AppPageProps = Omit<AppProps<PageProps>, "pageProps"> & {
   pageProps: PageProps
-}
-
-export type MatterResult = {
-  content: string
-  data: {
-    title: string
-    date:string
-  }
 }
