@@ -4,7 +4,7 @@
 //
 // import { User } from 'path/to/interfaces';
 import { AppProps } from "next/app"
-import {GrayMatterFile} from 'gray-matter'
+// import {GrayMatterFile} from 'gray-matter'
 export type postDataResult = {
   id:string
   content: string
@@ -27,10 +27,10 @@ export type postData = {
   date:string
 }
 
-export type postMatterData = {
-  id:string
-  contentHtml:string
-} & GrayMatterFile<string>
+// export type postMatterData = {
+//   id:string
+//   contentHtml:string
+// } & GrayMatterFile<string>
 
 export type Props = {
   props:{
@@ -45,4 +45,14 @@ type PageProps = {
 }
 export type AppPageProps = Omit<AppProps<PageProps>, "pageProps"> & {
   pageProps: PageProps
+}
+
+export type staticPaths = {
+  paths:fileNameId[]
+  fallback:boolean
+}
+export type staticProps = {
+  props:{
+      postData:postData
+  }
 }

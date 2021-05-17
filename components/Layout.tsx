@@ -10,7 +10,7 @@ type Props = {
 };
 const name: string = "Your Name";
 export const siteTitle: string = "Next.js Sample Website";
-const Layout = ({ children, home}: Props) => {
+const Layout:React.FC<Props> = ({ children, home}: Props) => {
   return (
     <div className={styles.container}>
       <Head>

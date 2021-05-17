@@ -2,10 +2,11 @@ import Layout from '../../components/Layout'
 import Head from 'next/head'
 import {getAllPostIds, getPostData} from '../../lib/posts'
 import utilStyles from '../../styles/utils.module.css'
-import {ReactNode} from 'react'
-import { postData } from '../../interfaces'
+import { postData,staticPaths, staticProps } from '../../interfaces'
 import Date from '../../components/Date'
-export const getStaticPaths = async () => {
+import React from 'react'
+
+export const getStaticPaths = async ():Promise<staticPaths> => {
     const paths = getAllPostIds()
     return {
         paths,
@@ -13,7 +14,7 @@ export const getStaticPaths = async () => {
     }
 }
 
-export const getStaticProps = async ({params}:{params:{id:string}})=>{
+export const getStaticProps = async ({params}:{params:{id:string}}):Promise<staticProps>=>{
     console.log('param',params)
     const postData = await getPostData(params.id)
     return {
@@ -23,7 +24,7 @@ export const getStaticProps = async ({params}:{params:{id:string}})=>{
     }
 }
 
-const Post = ({postData}:{postData:postData}):ReactNode => {
+const Post:React.FC<{postData:postData}> = ({postData}:{postData:postData}) => {
     console.log("postdate", postData)
     return (
     <Layout>
