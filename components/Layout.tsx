@@ -8,8 +8,8 @@ type Props = {
   children?: React.ReactNode;
   home?: boolean;
 };
-const name: string = "Your Name";
-export const siteTitle: string = "Next.js Sample Website";
+const name: string = "HOTAKE'S BLOG";
+export const siteTitle: string = "my blog";
 const Layout:React.FC<Props> = ({ children, home}: Props) => {
   return (
     <div className={styles.container}>
