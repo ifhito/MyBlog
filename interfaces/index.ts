@@ -32,7 +32,7 @@ export type postData = {
 //   contentHtml:string
 // } & GrayMatterFile<string>
 
-export type Props = {
+export type PropsAllPostsData = {
   props:{
     allPostsData:postDataResult
   }

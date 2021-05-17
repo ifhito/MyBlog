@@ -4,7 +4,7 @@ import {getAllPostIds, getPostData} from '../../lib/posts'
 import utilStyles from '../../styles/utils.module.css'
 import { postData,staticPaths, staticProps } from '../../interfaces'
 import Date from '../../components/Date'
-import React from 'react'
+import { NextPage } from 'next'
 
 export const getStaticPaths = async ():Promise<staticPaths> => {
     const paths = getAllPostIds()
@@ -24,7 +24,7 @@ export const getStaticProps = async ({params}:{params:{id:string}}):Promise<stat
     }
 }
 
-const Post:React.FC<{postData:postData}> = ({postData}:{postData:postData}) => {
+const Post:NextPage<{postData:postData}> = ({postData}:{postData:postData}) => {
     console.log("postdate", postData)
     return (
     <Layout>

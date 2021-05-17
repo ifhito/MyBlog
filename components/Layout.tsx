@@ -3,14 +3,14 @@ import Image from "next/image";
 import styles from "./layout.module.css";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
-import React from "react";
+import {NextPage} from 'next'
 type Props = {
   children?: React.ReactNode;
   home?: boolean;
 };
 const name: string = "HOTAKE'S BLOG";
 export const siteTitle: string = "my blog";
-const Layout:React.FC<Props> = ({ children, home}: Props) => {
+const Layout:NextPage<Props> = ({ children, home}: Props) => {
   return (
     <div className={styles.container}>
       <Head>

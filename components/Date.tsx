@@ -1,6 +1,6 @@
 import {parseISO, format} from 'date-fns'
-
-const Date:React.FC<{dateString:string}> = ({ dateString }:{dateString:string}) => {
+import { NextPage } from 'next'
+const Date:NextPage<{dateString:string}> = ({ dateString }:{dateString:string}) => {
     console.log('date',dateString)
     const date = parseISO(dateString)
     return <time dateTime={dateString}>{format(date, 'LLLL d, yyyy')}</time>

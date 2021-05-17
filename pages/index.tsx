@@ -4,8 +4,9 @@ import Layout, { siteTitle } from '../components/Layout'
 import utilStyles from '../styles/utils.module.css'
 import { getSortedPostsData } from '../lib/posts'
 import Date from '../components/Date'
-import {postDataResult, Props} from '../interfaces'
-const Home = ({allPostsData}: {allPostsData: Array<postDataResult>}) => {
+import {postDataResult, PropsAllPostsData} from '../interfaces'
+import {NextPage} from 'next'
+const Home:NextPage<{allPostsData: Array<postDataResult>}> = ({allPostsData}: {allPostsData: Array<postDataResult>}) => {
   console.log('check',allPostsData)
   return (
     <Layout home={true}>
@@ -32,7 +33,7 @@ const Home = ({allPostsData}: {allPostsData: Array<postDataResult>}) => {
   )
 }
 
-export const getStaticProps = ():Props => {
+export const getStaticProps = ():PropsAllPostsData => {
   const allPostsData = getSortedPostsData()
   return {
     props: {
