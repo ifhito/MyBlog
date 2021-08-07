@@ -4,31 +4,29 @@ import matter from 'gray-matter'
 import remark from 'remark'
 import html from 'remark-html'
 import {fileNameId, postData, postDataResult} from '../interfaces'
+import {getBlogs} from './getContent'
 const postsDirectory= path.join(process.cwd(), 'posts')
 
-export const getSortedPostsData = ():postDataResult => {
-    const fileNames =  fs.readdirSync(postsDirectory)
-    const allPostsData = fileNames.map(fileName => {
-        const id = fileName.replace(/\.md$/, '')
+export const getSortedPostsData = async ():Promise<postDataResult>=> {
+        // const fileNames =  fs.readdirSync(postsDirectory)
+    // const allPostsData = fileNames.map(fileName => {
+        // const id = fileName.replace(/\.md$/, '')
 
-        const fullPath = path.join(postsDirectory, fileName)
-        const fileContents = fs.readFileSync(fullPath, 'utf8')
-
-        const matterResult = matter(fileContents)
-        console.log('test',{id,...matterResult})
-        return {
-            id,
-            ...matterResult
+        // const fullPath = path.join(postsDirectory, fileName)
+        // const fileContents = fs.readFileSync(fullPath, 'utf8')
+        const { data } = await getBlogs();
+        const id:string = data.contents.items.id;
+        const title:string = data.contents.items.title;
+        const date: string = data.contents.items.date;
+        // const matterResult = matter(data.contents.items.);
+        const allPostsData = {
+            'id':id,
+            'title':title,
+            'date': date
         }
-    })
-    console.log('allPostData', allPostsData)
-    return JSON.parse(JSON.stringify(allPostsData.sort((a, b) => {
-        if (a.data.date < b.data.date) {
-            return 1
-        } else {
-            return -1
-        }
-    })))
+        console.log(allPostsData);
+    // })
+    return JSON.parse(JSON.stringify(allPostsData))
 } 
 
 export const getAllPostIds = (): Array<fileNameId> => {

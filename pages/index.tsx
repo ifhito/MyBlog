@@ -1,45 +1,49 @@
-import Head from 'next/head'
+import { NextPage } from 'next';
 import Link from 'next/link'
-import Layout, { siteTitle } from '../components/Layout'
-import utilStyles from '../styles/utils.module.css'
-import { getSortedPostsData } from '../lib/posts'
-import Date from '../components/Date'
-import {postDataResult, PropsAllPostsData} from '../interfaces'
-import {NextPage} from 'next'
-const Home:NextPage<{allPostsData: Array<postDataResult>}> = ({allPostsData}: {allPostsData: Array<postDataResult>}) => {
-  console.log('check',allPostsData)
+import React from 'react';
+
+import { getBlogs } from '../lib/getContent';
+import Head from 'next/dist/next-server/lib/head';
+import Nav from '../components/nav';
+
+type BlogItemType = {
+  items: any
+}
+const BlogItem: React.FC<BlogItemType> = props => {
+  const item = props.items;
+
   return (
-    <Layout home={true}>
-      <Head>
-        <title>{siteTitle}</title>
-      </Head>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, data}) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href={`/posts/${id}`}>
-                <a>{data.title}</a>
-              </Link>
-              <br />
-              <small className={utilStyles.lightText}>
-                <Date dateString={data.date} />
-              </small>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </Layout>
+    <div>
+      <Link href="/blogs/[id]" as={`/blogs/${item.id}`}>
+        <div>
+          <span>{ item.date }</span>
+          <span>{ item.title }</span>
+        </div>
+      </Link>
+    </div>
   )
 }
 
-export const getStaticProps = ():PropsAllPostsData => {
-  const allPostsData = getSortedPostsData()
-  return {
-    props: {
-      allPostsData
-    }
-  }
+const Blogs: NextPage = (props: any) => {
+  const { contents } = props;
+
+  return (
+    <div className="blog-container">
+      <Head>
+        <title>test</title>
+      </Head>
+      <Nav />
+      {
+        contents.map( (item: { id: React.Key; }) => <BlogItem items={ item } key={ item.id } />)
+      }
+    </div>
+  )
 }
 
-export default Home
+export const getStaticProps = async () => {
+  const data = await getBlogs();
+  console.log("コンテンツ", data.contents)
+  return { props: { contents: data.contents } };
+}
+
+export default Blogs;

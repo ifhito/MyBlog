@@ -7,11 +7,8 @@ import { AppProps } from "next/app"
 // import {GrayMatterFile} from 'gray-matter'
 export type postDataResult = {
   id:string
-  content: string
-  data: {title:string, date:string}
-  isEmpty: boolean
-  excerpt: string
-  orig: string
+  title: string
+  date: string
 }
 
 export type fileNameId = {
@@ -34,7 +31,7 @@ export type postData = {
 
 export type PropsAllPostsData = {
   props:{
-    allPostsData:postDataResult
+    allPostsData: Promise<postDataResult>
   }
 }
 type PageProps = {
